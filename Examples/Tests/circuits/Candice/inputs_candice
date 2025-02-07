@@ -101,7 +101,7 @@ warpx.Ez_excitation_grid_function(x,y,z,t) = "0."
 
 diagnostics.diags_names = plt chk
 plt.file_min_digits = 8
-plt.intervals = 10000
+plt.intervals = 100
 plt.diag_type = Full
 plt.fields_to_plot = Ex Ey Ez Bx By Bz jx jy jz sigma epsilon mu
 
@@ -110,5 +110,5 @@ chk.format = checkpoint
 chk.intervals = 50000
 chk.diag_type = Full
 
-max_step = 2000000
+max_step = 2000
 #amr.restart = diags/chk01000000
