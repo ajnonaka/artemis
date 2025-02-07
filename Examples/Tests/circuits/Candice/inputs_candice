@@ -1,0 +1,114 @@
+####################################################################################################
+## This input file requires USE_LLG=FALSE in the GNUMakefile.
+#################################################################################################
+
+################################
+####### GENERAL PARAMETERS ######
+#################################
+my_constants.nx = 400
+my_constants.ny = 80
+my_constants.nz = 40
+amr.n_cell = nx ny nz
+
+amr.max_grid_size_x = 100
+amr.max_grid_size_y = 80
+amr.max_grid_size_z = 40
+amr.blocking_factor = 2  # box lengths must be integer multiples of this
+amr.refine_grid_layout = 0
+amr.max_level = 0
+
+# domain sizes and cell numbers separately defined for easier excitation function definition
+my_constants.xlo = -100.e-6
+my_constants.xhi =  900.e-6
+my_constants.ylo = -100.e-6
+my_constants.yhi =  100.e-6
+my_constants.zlo = -200.e-6
+my_constants.zhi =  200.e-6
+
+geometry.dims = 3
+geometry.prob_lo = xlo ylo zlo
+geometry.prob_hi = xhi yhi zhi
+
+my_constants.pi = 3.14159265359
+my_constants.c = 299792458.
+
+my_constants.dx = (xhi-xlo) / nx
+my_constants.dy = (yhi-ylo) / ny
+my_constants.dz = (zhi-zlo) / nz
+my_constants.ddz = dz / 100
+my_constants.ddy = dy / 100
+my_constants.ddx = dx / 100
+
+my_constants.frequency = 1.e12
+my_constants.TP = 1./frequency
+
+my_constants.sigma_0 = 0.0
+my_constants.sigma_si = 1000.0
+
+my_constants.eps_0 = 8.8541878128e-12
+my_constants.eps_r_si = 11.7
+
+my_constants.mu_0 = 1.25663706212e-06
+my_constants.mu_r_si = 0.99837
+
+my_constants.flag_none = 0 # no source flag
+my_constants.flag_hs = 1 # hard source flag
+my_constants.flag_ss = 2 # soft source flag
+
+#################################
+############ NUMERICS ###########
+#################################
+warpx.verbose = 1
+warpx.use_filter = 0
+warpx.cfl = 0.95
+boundary.field_lo = pml pml pml
+boundary.field_hi = pml pml pml
+particles.nspecies = 0
+
+algo.em_solver_medium = macroscopic           # vacuum/macroscopic
+algo.macroscopic_sigma_method = backwardeuler   # laxwendroff or backwardeuler
+
+macroscopic.sigma_function(x,y,z) = "sigma_0 + (sigma_si - sigma_0) * (z < 0.)"
+
+macroscopic.epsilon_function(x,y,z) = "eps_0 + eps_0 * (eps_r_si - 1.) * (z < 0.)"
+
+macroscopic.mu_function(x,y,z) = "mu_0 + mu_0 * (mu_r_si - 1) * (z < 0.)"
+
+#################################
+############ FIELDS #############
+#################################
+
+warpx.E_excitation_on_grid_style = "parse_E_excitation_grid_function"
+
+warpx.Ex_excitation_flag_function(x,y,z) = "flag_hs * (z > -ddz) * (z < ddz) * (1 - (x > -ddx) * (x < 635.e-6 + ddx) * (y >  10.e-6 - ddy) * (y <  20.e-6 + ddy)
+                                                                                  - (x > -ddx) * (x < 635.e-6 + ddx) * (y > -20.e-6 - ddy) * (y < -10.e-6 + ddy) )"
+warpx.Ex_excitation_grid_function(x,y,z,t) = "0."
+
+warpx.Ey_excitation_flag_function(x,y,z) = "flag_ss * (x > -ddx) * (x < ddx) * ( (y > 10.e-6 - ddy) * (y < 20.e-6 + ddy) + (y > -20.e-6 - ddy) * (y < -10.e-6 + ddy) ) * (z > -dz - ddz) * (z < dz + ddz) +
+                                            flag_hs * (z > -ddz) * (z < ddz) * (1 - (x > -ddx) * (x < 635.e-6 + ddx) * (y >  10.e-6 - ddy) * (y <  20.e-6 + ddy)
+                                                                                  - (x > -ddx) * (x < 635.e-6 + ddx) * (y > -20.e-6 - ddy) * (y < -10.e-6 + ddy) )"
+
+warpx.Ey_excitation_grid_function(x,y,z,t) = "exp(-(t - 4.*TP)**2/(2*TP*TP))*sin(2*pi*t*frequency) *
+                                                        (x > -ddx) * (x < ddx) * ( (y > 10.e-6 - ddy) * (y < 20.e-6 + ddy) + (y > -20.e-6 - ddy) ) * (z > -dz - ddz) * (z < dz + ddz) +
+                                              0. *
+                                                        (z > -ddz) * (z < ddz) * (1 - (x > ddx) * (x < 635.e-6 + ddx) * (y >  10.e-6 - ddy) * (y <  20.e-6 + ddy)
+                                                                                    - (x > ddx) * (x < 635.e-6 + ddx) * (y > -20.e-6 - ddy) * (y < -10.e-6 + ddy) )"
+
+warpx.Ez_excitation_flag_function(x,y,z) = "flag_none"
+warpx.Ez_excitation_grid_function(x,y,z,t) = "0."
+
+# Diagnostics
+
+diagnostics.diags_names = plt chk
+plt.file_min_digits = 8
+plt.intervals = 10000
+plt.diag_type = Full
+plt.fields_to_plot = Ex Ey Ez Bx By Bz jx jy jz sigma epsilon mu
+
+chk.file_min_digits = 8
+chk.format = checkpoint
+chk.intervals = 50000
+chk.diag_type = Full
+
+max_step = 2000000
+#amr.restart = diags/chk01000000
