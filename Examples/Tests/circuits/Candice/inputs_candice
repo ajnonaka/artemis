@@ -89,10 +89,7 @@ warpx.Ey_excitation_flag_function(x,y,z) = "flag_ss * (x > -ddx) * (x < ddx) * (
                                                                                   - (x > -ddx) * (x < 635.e-6 + ddx) * (y > -20.e-6 - ddy) * (y < -10.e-6 + ddy) )"
 
 warpx.Ey_excitation_grid_function(x,y,z,t) = "exp(-(t - 4.*TP)**2/(2*TP*TP))*sin(2*pi*t*frequency) *
-                                                        (x > -ddx) * (x < ddx) * ( (y > 10.e-6 - ddy) * (y < 20.e-6 + ddy) + (y > -20.e-6 - ddy) ) * (z > -dz - ddz) * (z < dz + ddz) +
-                                              0. *
-                                                        (z > -ddz) * (z < ddz) * (1 - (x > ddx) * (x < 635.e-6 + ddx) * (y >  10.e-6 - ddy) * (y <  20.e-6 + ddy)
-                                                                                    - (x > ddx) * (x < 635.e-6 + ddx) * (y > -20.e-6 - ddy) * (y < -10.e-6 + ddy) )"
+                                                      (x > -ddx) * (x < ddx) * ( (y > 10.e-6 - ddy) * (y < 20.e-6 + ddy) + (y > -20.e-6 - ddy) * (y < -10.e-6 + ddy) ) * (z > -dz - ddz) * (z < dz + ddz)"
 
 warpx.Ez_excitation_flag_function(x,y,z) = "flag_none"
 warpx.Ez_excitation_grid_function(x,y,z,t) = "0."
