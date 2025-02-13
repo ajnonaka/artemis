@@ -3,5 +3,7 @@ Starting with inputs_pd_curved:
 inputs_candice0 - straightened
 inputs_candice1 - orient wave to travel in x-direction
 inputs_candace2 - add shoulder
+inputs_candace2s - change input to soft source
 inputs_candace3 - turn metal to PEC layer
-inputs_candace3s - change input to soft source
+inputs_candace3a - parameterize by frequency, not wavelength
+
