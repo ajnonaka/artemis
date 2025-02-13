@@ -2,8 +2,10 @@ Starting with inputs_pd_curved:
 
 inputs_candice0 - straightened
 inputs_candice1 - orient wave to travel in x-direction
-inputs_candace2 - add shoulder
-inputs_candace2s - change input to soft source
-inputs_candace3 - turn metal to PEC layer
-inputs_candace3a - parameterize by frequency, not wavelength
-inputs_candace4 - length/time scale to match 2.5 micron dx/dy
+inputs_candice2 - add shoulder
+inputs_candice2s - change input to soft source
+inputs_candice3 - turn metal to PEC layer
+inputs_candice3a - parameterize by frequency, not wavelength
+inputs_candice4 - length/time scale to match 2.5 micron dx/dy
+inputs_candice5 - increase dx to 10 microns, increase thickness of substrate, change width of line and air gaps
+inputs_candice6 - put buffer behind x=0, truncate line to 635 micron length
