@@ -6,4 +6,4 @@ inputs_candace2 - add shoulder
 inputs_candace2s - change input to soft source
 inputs_candace3 - turn metal to PEC layer
 inputs_candace3a - parameterize by frequency, not wavelength
-
+inputs_candace4 - length/time scale to match 2.5 micron dx/dy
