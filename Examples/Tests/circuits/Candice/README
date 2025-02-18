@@ -10,3 +10,4 @@ inputs_candice4 - length/time scale to match 2.5 micron dx/dy
 inputs_candice5 - increase dx to 10 microns, increase thickness of substrate, change width of line and air gaps
 inputs_candice6 - put buffer behind x=0, truncate line to 635 micron length
 inputs_candice7 - invert logic to subtract off superconductor, add mu difference above etch
+inputs_candice8 - first curve
