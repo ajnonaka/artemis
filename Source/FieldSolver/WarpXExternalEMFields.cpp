@@ -169,8 +169,8 @@ WarpX::ApplyExternalFieldExcitationOnGrid (
                 if (flag_type == 2._rt and dt_type_flag == 1) {
                     dt_type_factor = 0.5_rt;
                 }
-                if (flag_type != 0._rt && flag_type != 1._rt && flag_type != 2._rt) {
-                    amrex::Abort("flag type for excitation must be 0, or 1, or 2!");
+                if (flag_type > 2._rt) {
+                    amrex::Abort("flag type for excitation must be <= 2");
                 } else if ( flag_type > 0._rt ) {
                     Fx(i, j, k, n) = Fx(i,j,k,n)*(flag_type-1.0_rt)
                                    + dt_type_factor * xfield_parser(x,y,z,t);
@@ -188,8 +188,8 @@ WarpX::ApplyExternalFieldExcitationOnGrid (
                 if (flag_type == 2._rt and dt_type_flag == 1) {
                     dt_type_factor = 0.5_rt;
                 }
-                if (flag_type != 0._rt && flag_type != 1._rt && flag_type != 2._rt) {
-                    amrex::Abort("flag type for excitation must be 0, or 1, or 2!");
+                if (flag_type > 2._rt) {
+                    amrex::Abort("flag type for excitation must be <= 2");
                 } else if ( flag_type > 0._rt ) {
                     Fy(i, j, k, n) = Fy(i,j,k,n)*(flag_type-1.0_rt)
                                    + dt_type_factor * yfield_parser(x,y,z,t);
@@ -207,8 +207,8 @@ WarpX::ApplyExternalFieldExcitationOnGrid (
                 if (flag_type == 2._rt and dt_type_flag == 1) {
                     dt_type_factor = 0.5_rt;
                 }
-                if (flag_type != 0._rt && flag_type != 1._rt && flag_type != 2._rt) {
-                    amrex::Abort("flag type for excitation must be 0, or 1, or 2!");
+                if (flag_type > 2._rt) {
+                    amrex::Abort("flag type for excitation must be <= 2");
                 } else if ( flag_type > 0._rt ) {
                     Fz(i, j, k,n) = Fz(i,j,k,n)*(flag_type-1.0_rt)
                                   + dt_type_factor * zfield_parser(x,y,z,t);
