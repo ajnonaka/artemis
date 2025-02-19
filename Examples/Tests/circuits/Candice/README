@@ -12,3 +12,4 @@ inputs_candice6 - put buffer behind x=0, truncate line to 635 micron length
 inputs_candice7 - invert logic to subtract off superconductor, add mu difference above etch
 inputs_candice8 - first curve
 inputs_candice9 - fix PEC edges, robustify "do nothing" case to for work for flag 0, -1, -2, ...
+inputs_candice10 - use Ey source with alternating sign on each side of the signal line
