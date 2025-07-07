@@ -13,7 +13,6 @@ target_sources(WarpX
     MacroscopicEvolveE.cpp
     MacroscopicEvolveEPML.cpp
     ApplySilverMuellerBoundary.cpp
-    EvolveBLondon.cpp
 )
 
 if(WarpX_MAG_LLG)

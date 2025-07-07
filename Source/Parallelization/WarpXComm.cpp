@@ -556,6 +556,7 @@ WarpX::FillBoundaryJ (const int lev, const PatchType patch_type, const amrex::In
         period = Geom(lev-1).periodicity();
     }
 
+    /*
     if (do_pml)
     {
         if (pml[lev] && pml[lev]->ok())
@@ -568,6 +569,7 @@ WarpX::FillBoundaryJ (const int lev, const PatchType patch_type, const amrex::In
         }
     // note that fillBoundaryJ is not done in RZ as it is used only in 3D for london module.
     }
+    */
 
     // Fill guard cells in valid domain
     for (int i = 0; i < 3; ++i)
