@@ -85,9 +85,18 @@ Inductor::EvolveInductorJ (amrex::Real dt)
 
     const amrex::GpuArray<amrex::Real, AMREX_SPACEDIM> dx = warpx.Geom(lev).CellSizeArray();
 
-    amrex::MultiFab * jx = warpx.get_pointer_current_fp(lev, 0);
-    amrex::MultiFab * jy = warpx.get_pointer_current_fp(lev, 1);
-    amrex::MultiFab * jz = warpx.get_pointer_current_fp(lev, 2);
+    // If current centering is enabled, update the nodal current storage first.
+    // SyncCurrent() will then transfer the result to the staggered current and
+    // apply the same restriction / boundary logic as deposited current.
+    amrex::MultiFab * jx = (WarpX::do_current_centering)
+        ? warpx.get_pointer_current_fp_nodal(lev, 0)
+        : warpx.get_pointer_current_fp(lev, 0);
+    amrex::MultiFab * jy = (WarpX::do_current_centering)
+        ? warpx.get_pointer_current_fp_nodal(lev, 1)
+        : warpx.get_pointer_current_fp(lev, 1);
+    amrex::MultiFab * jz = (WarpX::do_current_centering)
+        ? warpx.get_pointer_current_fp_nodal(lev, 2)
+        : warpx.get_pointer_current_fp(lev, 2);
 
     amrex::MultiFab * Ex = warpx.get_pointer_Efield_fp(lev, 0);
     amrex::MultiFab * Ey = warpx.get_pointer_Efield_fp(lev, 1);

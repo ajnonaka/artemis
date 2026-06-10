@@ -152,7 +152,7 @@ WarpX::Evolve (int numsteps)
             }
             if (use_lumped_inductor) {
                 m_inductor->EvolveInductorJ(-0.5_rt*dt[0]); // J^(n) to J^(n-1/2) using E^(n)
-                FillBoundaryJ(guard_cells.ng_alloc_EB);
+                SyncCurrent(current_fp, current_cp);
             }
             is_synchronized = false;
         } else {
@@ -429,7 +429,7 @@ WarpX::OneStep_nosub (Real cur_time)
 #endif
     if (use_lumped_inductor == 1) {
         m_inductor->EvolveInductorJ(dt[0]); // J^(n-1/2) to J^(n+1/2) using E^(n)
-        FillBoundaryJ(guard_cells.ng_alloc_EB);
+        SyncCurrent(current_fp, current_cp);
     }
 
     ExecutePythonCallback("afterdeposition");
